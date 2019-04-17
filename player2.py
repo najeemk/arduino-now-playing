@@ -3,6 +3,7 @@ from mpris2 import get_players_uri, Player
 import gi.repository.GLib
 import serial
 import time
+import sys
 
 DBusGMainLoop(set_as_default=True)
 uri = next(get_players_uri())
@@ -19,7 +20,11 @@ def update_song():
     song_name = metadata['xesam:title']
     artist_name = artist_name = (metadata['xesam:artist'][0])
     print(song_name + " -----> " + artist_name)
-    arduino.write((song_name + "*" + artist_name + "*").encode())
+    try:
+        arduino.write((song_name + "*" + artist_name + "*").encode())
+    except:
+        sys.exit()
+
 
 arduino = serial.Serial('/dev/ttyACM0', 9600) 
 time.sleep(2)
