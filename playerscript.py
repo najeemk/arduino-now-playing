@@ -19,12 +19,7 @@ def update_song():
     metadata = player.Metadata
     song_name = metadata['xesam:title']
     artist_name = artist_name = (metadata['xesam:artist'][0])
-    print(song_name + " -----> " + artist_name)
-    try:
-        arduino.write((song_name + "*" + artist_name + "*").encode())
-    except:
-        sys.exit()
-
+    arduino.write((song_name + "*" + artist_name + "*").encode())
 
 arduino = serial.Serial('/dev/ttyACM0', 9600) 
 time.sleep(2)
